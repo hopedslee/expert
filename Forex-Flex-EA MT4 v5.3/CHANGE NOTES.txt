@@ -1,0 +1,502 @@
+5.3
+
+- Ajusted the FTMO prop firm version settings for better efficiency in terms of avoiding loss limits and hitting profit targets.
+- Added funded mode for the FTMO (prop firm version) of Flex.
+- Added a toggle to turn DesperationMode on or off for the prop firm version of Flex.
+- Added OrderCloseDelayms which is the amount of milliseconds to delay closing each trade.
+- Added improvements for trading Gold and Silver without having to adjust settings
+- Fixed an issue with Spread not displaying properly on chart
+
+5.1b
+
+- Fixed MACD only buying on MT4 version
+- Added RequireAllIndicatorRules to MT4 version
+
+5.1
+
+- Fixed a bug that was causing some strategies to get stuck trying to trade and then upon restart or reinitialization of the EA it would finally open the trade.
+- Improved FTMO prop firm version to better abide by the drawdown rules.
+- Fixed an issue with the trailingmode and trendmode being turned on
+- Fixed an issue with ADRDynamic
+- Other various tweaks and optimizations added.
+- Fixed FlexNewsIndicator to work on currency pairs with odd suffixes like EURUSD.x or EURUSD#
+
+5.0
+
+- Added a new built in strategy (CandlesticksX3, this is simply an alternative to loading its .set file.
+- Fixed MACD indicator, check the user guide for an explanation of how it works.
+- Added RequireAllIndicatorRules which by default is on. This will make it so if you have for example 2 indicators turned on like UseRSI and UseBBands, it will require both of those to meet their requirements before it trades. If you turn this new setting off, it will trade if either of those two indicators meet their requirements. This is a good way to build multiple strategies into one instance of Flex.
+- Added multiple timeframe options to the CandleSticks and BBands indicators which will allow it to look for signals across multiple timeframes instead of only the one its attached to.
+- Added MinADR setting
+- Fixed a bug with the UseSR indicator on MT5
+- Fixed LotStepMulti being reset on terminal restart.
+- Added Start_Minute and Stop_Minute settings
+- Fixed an issue with the trading sessions (asian, newyork, london) sometimes not working correctly
+
+
+4.99
+
+- Complete overhaul of the chart display gui to match that of the MT5 version
+- Optimized chart display gui to automatically adjust to different screen scaling settings (Fixes text overlapping/spacing issues).
+- Lots of optimization tweaks
+
+4.98d
+
+- Added RelatedOnly under the news filter settings when turned off will make EURUSD for example avoid all news even from other currencies like GBP. With this on EURUSD for example will only avoid EUR and USD related news.
+
+4.97
+
+-Fixed a bug with MaxCharts not always allowing the full max amount of charts to have open trades.
+-Added ConfirmCandleDirection for the CandlestickPattern mode to confirm the next open candle after the trigger pip/hammer closes in favor of the trade direction before taking the trade.
+-A few misc tweaks and adjustments
+
+4.96b
+
+-Fixed DynamicEQTPTrailPCT not working. It now works like so: It will trail by the percentage you set it to, for example if your EQTPMulti is set to 1  and you set DynamicEQTPTrailPCT to 75, it will lock in 75% of the profit and trail the remaining 25%. Or if you set it to 25 it would give up 75% of the profit but have 75% to trail by.
+-Adjusted RSi wait for exit slightly
+-Adjust stochastic indicator slightly
+
+4.96a
+-Fixed GlobalTPPause getting stuck and preventing future baskets opening
+-Fixed CustomSupport and CustomResistance that was not working
+-Added CheckVirtualDataOnRestart which will prevent your MT4 from resetting virtual data upon restart
+
+4.95j
+
+-Fixed ProgressivePipStepMulti causing trades to open upon MT4 restart if not set to 1.0
+-Fixed CloseRSI issue
+-Improved order flow and functionality
+-Other minor bug fixes and tweaks
+
+4.95i
+
+-Added separate timeframe selector for RSi Slope
+-Fixed an issue with Fullgrid not always trading both directions
+-Fixed CloseBasketAfterXmins not working on baskets bigger than 1 trade
+-Fixed an issue with UseSR and TradeSR
+-Fixed an issue with CloseTradesBeforeMarketClose
+-Fixed an issue with Global_Filters not working properly under certain circumstances
+
+4.95
+
+-CheckSpreadForAdditionals=true now default setting instead of false
+-Added separate timeframe option for EMA2
+-Added separate timeframe and RSI Period option for RSI Close function
+-Early stages of bitcoin code implementation internally
+-CloseBasketAfterXmins now works with OnlyCloseInProfit
+-DynamicAdditionals now works with waitfornext bar and waitforendofbar
+-Few fixes for UseSR and TradeSR functions
+-Fixed trades still being able to open after CloseTradesBeforeMarketClose
+-Improvements to Stochastic indicator
+-Improvements to TDI Indicator
+-Fixed some WaitForRSi_Exit issues
+
+4.93
+
+-Fixed Max_Charts not working properly
+-Fixed ADRDynamic strategy not setting RealTakeProfit on the 1st trade
+-Added adrRealStopLoss multiplier
+-Fixed PauseAfterStopOut not working with DollarSL
+
+4.91
+
+-Fixed issue with TDI indicator not functioning properly with some setting configurations
+-Fixed array out of range error in some backtests
+
+4.90
+
+-AddToSL setting added, works the same as AddToTP
+-WaitForEndOfBar setting added
+-NewMM added option to select to use the default original MM calculation or the new MM calculation, NewMM should be used for gold, silver, anything that isn't forex!
+-WaitForNewDirectionAfterStopout, if your DD_Stoploss PCT is hit by a buy basket, it will not allow another until a sell basket has opened and closed. This helps prevent continuing to open losing baskets against a trend with certain strategies.
+-UseNewTrailingStop added, this is a highly sensitive pip based trailing SL that will modify your trades RealStopLoss everytime the price moves further away from your SL. There is no step, it is tick based so as long as price is continuing to move away from your SL it will continue to modify the SL up to break even and then beyond. *NOTE* some brokers may not like the amount this modifies orders!
+-Fixed the original TrailingStop to work properly with Buy orders, previously it would not trail as much as it could have if spread/slippage was an issue.
+-CustomSupport and CustomResistance added, setting these to anything other than 0.00000 will activate them instead of Flex looking for the S&R itself.
+-CheckRSiSlope & RSiSlope added which will look at the slope of the last two bars worth of RSI on the current time frame and see if RSI is increasing or decreasing by the RSiSlope amount for each bar.
+-Added LossPCT and ProfitPCT for OnlyCloseAtLoss and OnlyCloseInProfit for the indicator closures so you can set the percentage based on account balance.
+-Added CloseBuyAboveRSi and CloseSellBelowRSi settings to add more flexibility instead of using the same RSi values for entries. These are based off whatever timeframe 2
+-Added a CloseInProfit on/off toggle for the CloseTradesBeforeMarketClose function
+-Added Global_Filters true/false toggle which will make the currency pair filters count ALL open trades across all magic numbers if turned on.
+-Added CloseAbovePCT true/false toggle for the CloseBasketBeforeNews function so you can decide whether or not to close only profitable baskets before news.
+-Added UseCandleStickPattern true/false toggle which is the first implementation of detecting bull/bear pins and hammers. You will see a whole new section of settings for this just before the indicator closure settings. There you can fine tune the exact type of candles you want to look for.
+-Adjust SR indicator to be based of body open/close instead of wick high/low
+-Fixed some issues with session filters
+-Fixed some issues with EquityTrail closing trades too early
+-Fixed DynamicEQTP to work with allCharts
+-Fixed CloseTradesBeforeMarketClose to work with the set Ending Trade Day for those setting it earlier than Friday.
+-Fixed the on/off button to not allow additional trades in a basket if turned off.
+
+4.86
+
+-Fixed trading sessions and added start and end hours for each (Asian, London, New York)
+-Added a separate LotMultiplier for trend trades (added trades in favour of the previous from trend mode)
+-Fixed Flex not sticking to a chart if there is no balance in the account
+-Fixed some potential issues with PauseAfterProfit and PauseAfterStopOut
+-Lots of other small bug fixes/adjustments
+
+4.85
+
+-Adjusted the trade closure algorithm to slow it down to better account for errors like trade context busy
+-FlexNewsIndicator updated to v0.91 which fixes the url change at forexfactory.com calendar.
+
+4.84
+
+-Fixed a bug where the stop out pause was still being triggered when trades were closing in profit
+-Added BBands indicator which will buy when price falls below the lower band and sell above the upper band. It will also prevent buying above the upper band and selling below the lower band.
+-Added CloseBBands which will close buys when price goes above upper band and close sells when price goes below lower band
+-Fixed a bug with EQTP1 not always working properly
+
+4.83
+
+-Fixed CloseEverything to work properly, it must also have DD_SL_Mode or DD_TP_Mode or both set to allCharts depending what you want.
+-PauseBasketAtNews added, this will prevent additional trades in a basket from opening if you have one open going into a news event. It will be paused for the duration of your PauseBefore and PauseAfter news minutes.
+-Fixed TrendPipStep not being able to be changed from 21
+-Fixed a bug where the stop out pause was being triggered when trades were closing in profit
+
+
+4.82
+
+-Switched back to the original MM formula of ((Balance*Leverage)/lot_size)*(Risk/100)) to keep lot sizes consistent across all pairs.
+-Added UseDynamicEQTP which will toggle on/off this feature that creates a dynamic EquityTrailTP based on total lots opened using this formula (  TotalLots/AccountBalance()*(10000*DynamicEQTPMulti);  ). This feature will work with DD_TP_Mode so it can look at all trades across all charts if you want it to.
+-DynamicEQTPMulti this is the multiplier used
+-Added UseBBands which uses the Bollinger Bands indicator to prevent buying when price is above the upper and only allow buying when price is below the lower band. The opposite for sells.
+-Added OnlyCloseInProfit which is to be used with the IndicatorClosures
+-Fixed EMACross to trade at all crosses instead of some.
+-Adjusted WaitForNextBar slightly to improve its efficiency
+-Adjust LotStepMultiplier to use the following formula (   last_lot*((LotMultiplier+((LotStepMultiplier-1)*NumOfTradesOpenInBasket)   ). A good range for this is usually something low between 1.05 to 1.20.
+-Improved backtesting speed and lowered memory/cpu usage
+-Changed CloseRSi to close buys when RSi is higher than SellAboveRSi and close sells when price is below BuyBelowRSI
+-CloseEMA adjusted to close buys when price is below EMA2 and close sells when price is above EMA2
+-Lots of other minor adjustments and bug fixes littered throughout, too much to list!
+
+4.81
+
+-Fixed a bug with the new AddToTP feature that wasn't working beyond 3 trades deep.
+
+4.80
+
+-Added support for Indices, metals, crypto etc... I haven't done a ton of testing with this so please use on demo and backtests only until you're confident it's working properly on whatever you're trading. By support I mean properly calculated lot sizes and appropriate pip multipliers.
+-Because of the above support, I have altered how the MM calculates lot sizes.
+Old way: ((Balance*Leverage)/lot_size)*(Risk/100))
+New way: (Risk/100)*AccountBalance/Margin
+-AddToTP setting added which will progressively increase the RealTakeProfit amount in pips by this amount depending how many trades are open in the basket. If set to 2, it will increase your RealTakeProfit by +2 after one trade, then another +2 at the next trade and so on. You can also set this to a negative number.
+-UseEMACross addedd so you can trade a specific EMA crosses instead of using a hack around method via the TDI
+-CheckRSiSlope added which will check to see if the RSi has started moving back in favor of the direction we want to trade. If it wants to buy at a low over sold level below 30, but RSi is still dropping on that timeframe, it will wait for it to have an uptick before entering. This uses the RSiTimeframe3 to check the slope, so it's usually best to set this to your lowest timeframe of the 3. UseRSix3 does not need to be on for this to work.
+-Added option to change the RSix3 timeframes
+-Added a simple volume indicator when turned on, it won't allow trades unless volume over the current and previous 2 closed bars.
+-Fixed a bug where strategies like DE Halfgrid 3% that uses DD_TP_Mode of allCharts was having new trades closed as soon as they hit any kind of small profit shortly after a previously larger basket was closed.
+-You can now set news impact to 2 which will avoid all medium and high impact news instead of always high impact only.
+
+4.74 BETA
+
+- Made some fixes/adjustments to how reverse mode works in regards to some indicators. This version now fully supports some of the newer TDI Slope strategies listed in this thread
+- Added a Timeframe option for each individual indicator so you can use different timeframes for each indicator if wanted.
+- Added CheckTrend_64_240_LWMA indicator which will only allow trades while price is above 64/240 LWMAs or below. The LWMA's must also be above or below each other to trade.
+- Added Avoid_EMA_Gap_Greater_Than and Avoid_EMA_Gap_Less_Than which do exactly as they suggest. EMA must be turned on, and a value greater than 0 must be entered to turn these on. You don't have to use both together you can use just one if wanted.
+- Fixed Fullgrid strategy to now abid by TradingDay, CurrencyFilters, and other rules that other strategies abid by.
+
+
+4.73 BETA
+
+- UseVirtualTrading added which can be toggled on/off to turn off the virtual trading. Turning it off with otherwise default settings should make Flex trade immediately. This should only be used for testing purposes or if running strategies based solely on indicators and virtual trading isn't needed.
+- CloseEverything added which if turned on, will make Flex close EVERY trade regardless of magic number on your account, but only if a close function is triggered like the DD_stoploss PCT, EquityTrail and DD_SL_Mode must be on allCharts.
+- EQTP1, EQTP2, etc. added, these are used to custom define the EquityTrailTP you want to use for a basket of certain sizes. EQTP1 means the TP % for 1 trade basket, EQTP5 means the TP % for a 5 trade basket. It will always trail exactly half the amount of the TP if these are used. If left at 0, it will use the original EquityTrailTP.
+- UseRSIx3 added which will require the RSI across multiple timeframes (Current, H1, M15) to be above/below to trade
+- NearTop/Bottom Of Candle feature added that you can toggle on/off which will prevent buys from opening at the top of a candle and sells at the bottom, or the complete opposite if you desire. The 'HowClose' determines how many pips within the top/bottom it must be near to trade, or how many pips away it must be from the top/bottom to trade depending which ones you have turned on.
+- RequireAllCloseRules setting added which is used for the IndicatorClosures if you have more than one of them turned on, turning this setting on will require all your turned on rules to be met for trades to close.
+- OnlyCloseAtLoss setting added which is used only for the indicator closures and will only close baskets if they are in a net loss.
+- CloseSlopeCross added which is a new indicator closure rule which will close a sell basket if the price crosses above the slope (TDIPeriod3) and close buy baskets if price crosses below the slope (TDIPeriod3).
+- Improved backtesting speed
+
+4.72 BETA
+
+- Fixed a hedging bug
+- Changed CloseSR so it doesn't close buys at support and sells at resistance as this is where it normally opens trades. If you set CloseBothWays to true then it will close at both.
+- CheckCandleSize has been adjusted to check for bigger than or smaller than, as well as an option to choose whether to measure the candle body (Open - Close) or entire wick (High to low).
+- Added ResetDataOnFriday which will reset all virtual data for that chart every Friday at the CloseHour set.
+- Added MomentumFlatLine indicator which will wait for a level off of the momentum indicator before allowing a trade.
+- Added CustomSetFile setting which is just a way to name custom strategies and have them displayed on your chart as the strategy.
+
+4.70 BETA
+
+- Added Exit strategies (Indicator closure). This still needs a lot of testing, please test in backtests to make sure what you want to happen is actually happening and working.
+- Added toggle 'CheckSpreadForAdditionals' which won't open any additional trades if spread is too high
+- Fixed the hedging from opening a hedge if 'TrendMode' is turned on and max trades has been reached where the basket would be in profit and a hedge isn't needed
+- Added new toggle 'CloseTogether' under hedge settings which will close the hedge if the basket closes and vice versa
+- Fixed the Support & Resistance lines not showing if using the TradeSR
+- Added 'UseSlopeCross' in TDI settings which will trade when TDIPeriod2 (red) crosses the TDIPeriod3
+- Added 'CheckCandleSizeSmaller' which will only allow a trade to open if the previous 'x' number of candles have all been smaller than 'x' number of pips. CheckCandleSize still remains the same as previous versions.
+
+
+4.66
+
+- WaitForNextBar has been adjusted to fix it not working on some brokers.
+
+4.65
+
+-Added IndicatorDataReset=false; //Reset virtual data if indicators aren't ready and accuracy is above 100%. This was turned on by default in 4.64 which reduced trading frequency quite a bit for strategies that use both virtual trades and some indicators.
+-Adjusted the default multipliers for the ADRDynamic strategy instead of them all just being 0.3
+
+4.64
+
+- Added PauseAfterProfit which if turned on will pause trading on that pair for 'x' number of hours from when the trades in profit closed
+- Added some external multipliers for the ADRDynamic strategy to allow you to configure how it calculates the settings for this strategy instead of static internal multipliers.
+- Added CloseBasketAfterXmins which will close all trades for that pair after 'x' number of minutes that it has been opened.
+- Virtual Data is now reset if it gets over 100% but the indicator filters you have turned on are not met.
+- Increased pause while trades are being closed to prevent anymore from being opened during this time.
+- Fixed an issue where the Friday close wasn't pausing long enough to make it to the weekend allowing the possibility of more Friday trades to slip through.
+-v0.7 FlexNewsIndicator fixes the cannot set timer bug
+
+4.63
+
+- Fixed DD_Pause not working under certain situations
+- Fixed an issue with really high TPs being modified into trades on strategies using a RealTakeStopLoss
+
+4.62
+
+- Fixed EquityTrail not closing trades sometimes when it should be, also improved how its displayed to show the current EquitySL, EquityTP and current profit
+- Added ResetVirtualDataAfterNews option which does exactly what it sounds like it does
+- Minor adjustments to FlexNewsIndicator
+
+4.61
+
+- Fixed NewsFilter recent news bug that could potentially allow it to still trade if there are multiple recent news
+- Fixed an issue with slippage 
+- Fixed issue with virtual data being reset even though price didn't move RestartSlippage amount
+- Fixed virtual trade algorithm that was causing it to sometimes enter trades earlier and or more often than it would have in versions 4.53 and older
+
+4.60
+
+- Improved EquityTrail profit increasing potential
+- Added TradeSR which will trigger a buy if price is within PipsAwayFromSR of the resistance or a sell at the support
+- TDISlopeBars allows you to enter how many bars the slope should be determined over
+- WaitForRSIExit makes it so if price go above 70, it will wait for it to come back below 70 before selling, and vice versa for buying below 30
+- TrendPipStep a separate PipStep for trend mode
+- Drastically improved performance (cpu/memory usage)
+- Fixed 0.01 lot size bug
+- Rearranged a lot of the settings to better organize/group them together
+- Change how TDI, TDI Cross and TDI Slope are used. They will now buy when tdi slope is moving up, tdi crossess up, etc instead of requiring   ReverseMode to be on like in previous versions.
+
+4.58
+
+- Fixed EquityTrail having trouble closing trades in profit if DD_TP_Mode was set to allCharts
+- Fixed issue with Shotgun strategy where ADR filter could potentially reset an internal trade count which would result in more than the defined MaxBuy/Sell trades being opened
+- Added ShowButtons toggle to hide the On/Close/Close All buttons
+
+4.57
+
+- Added GUI buttons on chart which can be dragged to any location you want.
+  -Clicking the ON/OFF button will turn Flex off on that chart only, but if that chart has open charts it will continue to manage them even if you set this off.
+  -Clicking CLOSE will bring up a similar box asking to confirm you want to close all open orders for that pair only.
+  -Clicking the CLOSE ALL button will bring up the following popup box asking to confirm you want to close ALL Flex open trades with that magic number. 
+- Added FullBasketEquityTrail, when turned on it will allow Flex to start an EquityTrail at a defined loss pct (WhenToStart_FBET) for a full basket (reached max trades). This can be   useful if you want to try to get out of a full basket as quickly as possible even if it means at a loss. It will only kick in if you have a max trade basket, and it's DD comes      back above the (WhenToStart_FBET) value.
+- Added a failover authentication check from a 2nd server if the first (forexflexea.com) fails if it's down or unreachable for whatever reason.
+- Improved NewsFilter function to prevent error 5004
+- Lots of little cosmetic fixes
+
+4.56
+
+- Fixed Flex from possibly not trading at all if it can't find any news
+
+4.55
+
+- Now using a different news indicator, if the old one wasn't working properly for you, try this version of Flex with this new FlexNewsIndicator
+
+4.54
+
+- Fixed Trading sessions (london, new york, asian, etc) getting mixed up with different broker GMTs
+- Fixed CloseTradesBeforeMarketClose opening and closing trades after this is triggered if there is still a trade signal late on Fridays
+- Few other minor tweaks to try to help improve trading frequency
+
+4.53
+
+- Stopped Flex from spamming experts log with messages about news
+
+4.52
+
+- Fixed an issue with the newsfilter halting trading after news longer than it should have
+
+4.51
+
+-Fixed an issue with Hedging where if the basket closed but the Hedge didn't, another Hedge could be opened against that Hedge trade.
+
+4.50
+
+1. Added a pipstep for the Hedge trade to choose when to place it instead of immediately after the last trade in a basket.
+2. Fixed OffSetHours not updating visually on chart news
+3. Separated PipStepMultiplier from lot sizing and creating a new LotStepMultiplier for more control
+4. Fixed FFCal sometimes spamming too many alerts
+5. Made the Stochastic periods adjustable
+6. Added a CloseBasketOnFriday and an Hour to select which hour on Friday to close them
+7. Fixed NewsFilter not working all the time
+8. Added a DynamicAdditional setting which will require any indicator filters used for entries to be used for additional trades in a basket.
+9. Added a WaitForNext bar setting that will wait for the current bar to close before entering a trade if one is ready to open.
+10. Added a CheckCandleSize to only trade if one of the previous 3 candles is large than 'x' number of pips.
+11. Fixed DDPause not working sometimes
+
+4.30
+
+-Fixed ADRDynamic strategy where FloatingTP_PCT, DD StoplossPCT and EquityTrail may not have triggered
+-Fixed FullGrid losing control of multiplied lot sizes
+-Fixed an issue where trades could be opened if Flex is taking too long to close other trades from EquityTrail or Floating TP PCT
+-Changed the way TrendHybrid and TrendMode work together so no more than 1 trade can be placed on a single grid step point
+-Fixed an issue with the FFCal news indicator not working under certain conditions
+
+4.20
+
+-Added new RecoveryMode
+-Added some extra options for hedging like HedgeTP/SL and option to HedgeOnce or keep hedging if the hedge hits its TP
+-Adjusted EquityTrailSL so if you enter a value greater than 0.0 it will use that SL instead of auto calculating one based on your EquityTrailTP and EquityStep.
+-Added an OffSetHour for the news filter incase your news is a few hours ahead or behind.
+-Fixed DDPause not working properly under certain situations
+-Fixed EquityTrail to work with DD_TP_Mode of allCharts
+-Adjusted FullGrid strategy so it always opens a buy and sell to start
+-Fixed FFCal.ex4 news indicator to stop it spamming error 5004 even though it wasn't affecting trading in anyway.
+
+
+4.13
+
+Fixed hedge mode that was limiting max trades to 5 no matter what
+
+4.12
+
+Changed the hedge mode so it will only hedge once
+
+4.11
+
+Fixes an issue that may have prevented additional trades from opening after the first trade.
+
+4.10
+
+Fixed some order close errors
+Fixed duplicate order issue
+Fixed EquityTrail not showing locked in profit properly on chart
+Fixed news not update on chart sometimes
+Added Hedge mode
+Added update notifications
+
+4.04
+
+Fixed order close function having problems closing JPY pairs
+Turned UseSR filter off, it was restricting trading too much for a lot of people
+
+4.03
+
+Adjusted UseSR settings to look back over more bars (60), and lower PipsAwayFromSR to (15).
+
+4.02
+
+Fixed order closing function having issues closing some trades
+Added visual notification if trades aren't being opened due to support & resistance filter
+
+
+4.01
+
+Fixed Flex not trading when it should be under certain situations
+Added RSI indicator filter
+Changed a few default settings
+
+4.00 BIG UPDATE  ----------
+
+Huge update that added News filter and a ton of new options, check the documentation for the settings labeled as new for more details.
+
+3.59 Changes
+
+Fixed lot sizing on 2 decimal currencies.
+
+3.58 Changes
+
+Fixed initial trades opening on minimum lot sizes when using a pip based SL
+
+3.57 Changes
+
+Adjusted entry mechanics to increase trading frequency a bit
+Adjusted EquityTrailStep to lock in better profits
+Lowered RealStopLoss of Shotgun from 200 to 50
+
+3.56 Changes
+
+Fixed starting lot size opening at minimum lots instead of calculated lot based on MM
+
+3.55 Changes
+
+Improved Max_Charts and Curreny Filters function
+
+3.54 Changes
+
+Fixed ReverseMode
+
+3.53 Changes
+
+Fixed an issue where additional baskets trades weren't opening with newmode on.
+
+3.52 Changes
+
+Fixed an issue which may have prevented new trades from opening 30% of the time.
+Fixed a pipstep issue where buy orders were a few pips off from where they should have been opened
+
+
+3.51 Changes
+
+Fixed SR (Support & Resistance) for scalper
+Fixed ReverseMode not functioning properly
+
+
+<<------------------INDICATORS---------------------->>
+
+Added Indicators which can be used to either filter out new baskets from starting, or to trigger new baskets. If you want these indicators to just filter out trades, no special changes are required. If you want these indicators to trigger trades, turn on the ones you want, and set VirtualTrades to 1 and VirtualPipStep to 1.
+
+-UseSR... This is a Support/Resistance filter which will prevent new baskets from starting near these levels
+ NumOfBars... This is the number of bars on the current timeframe that are looked at to determine the               support and resistance levels.
+
+-UseEMA... This is your standard Exponential Moving Average of the current time frame using the two EMA values you enter below
+
+-UseStochastic... This is your standard Stochastic of the current time frame which will filter trades based on the 4 stoch settings below. If you don't want to use the first two, then set them to 0 and give the bottom two a value.
+ BuyAboveStoch... A starting buy will only open if Stoch is above 50
+ SellBelowStoch...A starting sell will only open if stoch is below 50
+ BuyBelowStoch... A starting buy will only open if Stoch is below 50
+ SellAboveStoch...A starting sell will only open if stoch is above 50
+
+-UseTDI... This is an indicator similar to Traders Dynamic Index using 3 Moving Averages (2, 7, 25) where they must align properly to allow trades to open.
+
+-UseTDICross... This will trigger a starting basket when the 3 MA's cross up or down (buy or sell).
+
+-CheckTDiSlope... This will only open a buy if the trend is moving up and open a sell if the trend is moving down.
+
+
+
+<<------------------ADDED FEATURES---------------------->>
+
+Added VirtualPipStep so you can now use a different PipStep (for real orders) and one for virtual trades.
+
+Added PauseBasketsAtDD which will prevent additional trades of a basket from opening until DD is back under the DD_Pause value
+
+Adjusted start day to Monday and ending day to Thursday so new baskets will no longer be started on Sundays or Fridays.
+
+Lowered ADR to 150 for all strategies
+
+Added CloseTradesAtADR which will close that charts trades if ADR goes over MaxADR. This will almost always result in a loss, just so you know.
+
+Added PauseBasketsAtADR which will not allow additional trades in a basket to open if ADR goes over MaxADR. The trade will be opened if ADR returns to normal.
+
+EquityTrailSL now uses EquityTrailSL=EquityTrailTP-(EquityTrailStep*5) instead of *2
+
+EquityTrail is now displayed on chart so you know when it is triggered and how much
+
+
+
+<<------------------BUG FIXES---------------------->>
+
+Fixed virtual data not saving or loading properly
+
+Fixed bug with ADR displaying incorrectly on chart
+
+Improved the MaxCharts function so it will be far less likely if two charts trigger trades at the exact same time, it can bypass the MaxCharts.
+
+<<------------------STRATEGY UPDATES---------------------->>
+
+Adjusted v2Default to ensure bigger baskets always close in profit
+
+SuperPrecise, FlexHybrid, ADRDynamic and x3Retrace have all been slightly optimized for current market conditions
+
+TrendSurfer has some minor adjustments to it's entry rules
